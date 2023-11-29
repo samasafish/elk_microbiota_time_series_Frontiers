@@ -1,0 +1,105 @@
+---
+title: "Create data links and initial QC"
+author: "Sam"
+date: "11/30/2020"
+output:  
+  pdf_document: default
+  html_document: default
+  # word_document: default
+  
+---
+
+#### Purpose
+## this script defines the folders and links the raw data into them and
+## also renames them and runs fastqc and multiqc on the raw data
+### 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(engine.opts = list(bash = "-l"), include = FALSE)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+library(ezknitr)
+# Set data/output directories
+data_dir <- "./data_links/"
+output_dir <- "./r_output/"
+figure_dir <- "./r_output/figures"
+reports_dir <- "./r_output/reports"
+rds_obj_dir <- "./r_output/intermediate_files"
+
+#you will need some of these system packages installed locally
+# rename 
+# fastqc
+# multiqc
+
+```
+
+```{r}
+getwd()
+
+```
+#### 1. Make some directories
+### - create directories
+```{bash, engine.opts = "-l"}
+if [ ! -d ./data_links ]; then
+    echo "directory missing, creating it";
+    mkdir ./data_links
+  else
+    echo "data_links directory exists"
+fi
+
+if ! test -d ./r_output ; then
+    echo "directory missing, creating it";
+    mkdir ./r_output
+  else
+    echo "r_ouput directory exists"
+fi
+```
+
+#### 2. Make soft links to data (you will need to update file path)
+### - create raw data links (you will need to update file path)
+```{bash}
+if  [[ ! $(ls -L ./data_links/*fq.gz) ]]; then
+    echo "links missing, creating them"
+    
+    find  ~/Desktop/data/Gen_core_UM_noDemux_2017/elk_microB_time_series_raw/ -iname "*.fq*" -printf "%P\n " | xargs  -I % -n1 ln -s  ~/Desktop/data/Gen_core_UM_noDemux_2017/elk_microB_time_series_raw/% ~/Desktop/projects/time_series/data_links/%
+
+    echo "files exists"
+fi
+```
+
+run fastqc and multiQC.. check directory
+```{bash}
+if [ ! -d ./data_links/fastqc_reports ]; then
+    echo "directory missing, creating it...";
+    mkdir ./data_links/fastqc_reports
+  else
+    echo "fastqc directory exists.";
+fi
+```
+
+```{r}
+Sys.setenv("DISPLAY"=":50")
+```
+
+run fastqc or multiQC
+```{bash}
+if  [[ ! $(ls ./data_links/fastqc_reports/*fastqc.html) ]]; then
+    echo "fastqc output missing, running fastqc...";
+  find ./data_links/ -name "*fq.gz" | xargs -n 1 fastqc -t 25 -o ./data_links/fastqc_reports/
+  else
+    echo "fastqc output exists. Checking for multiQC...";
+fi
+```
+
+run multiQC
+```{bash}
+if   [ ! -d ./r_output/reports/multiqc_data ]; then
+    echo "multiqc output missing, running multiqc...";
+    mkdir ./r_output/reports/
+  else
+    echo "multiqc output exists.";
+fi
+```
+
+```{bash, engine.opts = "-l"}
+ multiqc ./data_links/fastqc_reports/. -o ./r_output/reports
+```
+# done

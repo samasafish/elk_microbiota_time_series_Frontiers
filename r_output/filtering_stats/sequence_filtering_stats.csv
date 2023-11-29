@@ -1,0 +1,8 @@
+"","total_raw_pairs_in","Primer_trim_filter","Quality_filter_trim","  denoisedF","  denoisedR","    merged"," non_chimera","  proportion"
+"","Min.   : 23800  ","Min.   : 23590  ","Min.   : 16970  ","Min.   : 15563  ","Min.   : 16069  ","Min.   :  8383  ","Min.   :  7812  ","Min.   :0.2459  "
+"","1st Qu.: 51668  ","1st Qu.: 51243  ","1st Qu.: 37472  ","1st Qu.: 35628  ","1st Qu.: 36095  ","1st Qu.: 21570  ","1st Qu.: 19910  ","1st Qu.:0.3621  "
+"","Median : 65786  ","Median : 65264  ","Median : 47724  ","Median : 45664  ","Median : 46296  ","Median : 30424  ","Median : 28062  ","Median :0.4079  "
+"","Mean   : 86842  ","Mean   : 86212  ","Mean   : 63222  ","Mean   : 60626  ","Mean   : 61441  ","Mean   : 39743  ","Mean   : 35969  ","Mean   :0.4010  "
+"","3rd Qu.:100791  ","3rd Qu.:100173  ","3rd Qu.: 73734  ","3rd Qu.: 70005  ","3rd Qu.: 71375  ","3rd Qu.: 46234  ","3rd Qu.: 42365  ","3rd Qu.:0.4436  "
+"","Max.   :267983  ","Max.   :265897  ","Max.   :196979  ","Max.   :192614  ","Max.   :194089  ","Max.   :142648  ","Max.   :126887  ","Max.   :0.4972  "
+"col_totals_1","5210542","5172731","3793295","3637573","3686477","2384561","2158150","24.0622139176864"
